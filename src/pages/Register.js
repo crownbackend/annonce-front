@@ -4,13 +4,15 @@ import UserApi from "../services/UserApi";
 import { DayPicker } from 'react-day-picker';
 import 'react-day-picker/dist/style.css';
 import fr from 'date-fns/locale/fr';
+import { useNavigate } from 'react-router-dom';
 
 function Register() {
     const [firstName, setFirstName] = useState('');
     const [lastName, setLastName] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-    const [selected, setSelected] = React.useState(new Date())
+    const [selected, setSelected] = React.useState(new Date());
+    const navigate = useNavigate();
 
 
     const formatDate = (date) => {
@@ -37,10 +39,12 @@ function Register() {
         data.append('birthday', formatDate(selected));
         UserApi.getAPIServiceInstance().register(data)
             .then(response => {
-                console.log(response);
+                if(response.status === 201) {
+                    navigate('/')
+                }
             })
-            .catch(error => {
-                console.log(error);
+            .catch(() => {
+                alert('Erreur serveur')
             })
 
     }

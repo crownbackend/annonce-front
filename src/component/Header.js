@@ -36,7 +36,7 @@ function Header() {
                     {/*    <Button variant="outline-success">Search</Button>*/}
                     {/*</Form>*/}
 
-                    <button type="button" className="btn btn-outline-primary me-2">Connexion</button>
+                    <Link to="/connexion" className="btn btn-outline-primary me-2">Connexion</Link>
                     <Link to="/inscription" className="btn btn-primary">Inscription</Link>
 
                 </Navbar.Collapse>
