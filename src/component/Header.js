@@ -1,7 +1,30 @@
-import { Nav, Navbar, NavDropdown, Container, Form, Button } from "react-bootstrap";
+import { Nav, Navbar, NavDropdown, Container } from "react-bootstrap";
 import { Link } from "react-router-dom";
+import React, { useState } from 'react';
 
-function Header() {
+function Header(props) {
+    const isLoggedIn = props.isLoggedIn;
+    let login = null;
+    function handleLogout() {
+        localStorage.removeItem('token')
+    }
+    if(isLoggedIn) {
+        login = <NavDropdown title="Link" id="navbarScrollingDropdown">
+            <NavDropdown.Item href="#action3">Action</NavDropdown.Item>
+            <NavDropdown.Item href="#action4">
+                Another action
+            </NavDropdown.Item>
+            <NavDropdown.Divider />
+            <NavDropdown.Item href="#" onClick={handleLogout}>
+                Deconnexion
+            </NavDropdown.Item>
+        </NavDropdown>
+    } else if(!isLoggedIn) {
+        login = <div>
+            <Link to="/connexion" className="btn btn-outline-primary me-2">Connexion</Link>
+            <Link to="/inscription" className="btn btn-primary">Inscription</Link>
+        </div>
+    }
     return (
         <Navbar bg="light" expand="lg">
             <Container>
@@ -26,19 +49,7 @@ function Header() {
                             </NavDropdown.Item>
                         </NavDropdown>
                     </Nav>
-                    {/*<Form className="d-flex">*/}
-                    {/*    <Form.Control*/}
-                    {/*        type="search"*/}
-                    {/*        placeholder="Search"*/}
-                    {/*        className="me-2"*/}
-                    {/*        aria-label="Search"*/}
-                    {/*    />*/}
-                    {/*    <Button variant="outline-success">Search</Button>*/}
-                    {/*</Form>*/}
-
-                    <Link to="/connexion" className="btn btn-outline-primary me-2">Connexion</Link>
-                    <Link to="/inscription" className="btn btn-primary">Inscription</Link>
-
+                    {login}
                 </Navbar.Collapse>
             </Container>
         </Navbar>

@@ -1,10 +1,12 @@
 import { Container, Form, Button, Col } from "react-bootstrap";
 import React, { useState } from 'react';
 import SecurityApi from "../services/SecurityApi";
+import { useNavigate } from 'react-router-dom';
 
 function Login() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const navigate = useNavigate();
 
     function handleSubmit(event) {
         event.preventDefault();
@@ -13,8 +15,10 @@ function Login() {
             password: password,
         }
         SecurityApi.getAPIServiceInstance().login(data)
-            .then(response => {
-                console.log(response);
+            .then(res => res.json())
+            .then((response) => {
+                window.localStorage.setItem('token', JSON.stringify(response.token));
+                navigate('/')
             })
             .catch(error => {
                 console.log(error);

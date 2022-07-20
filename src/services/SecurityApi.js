@@ -11,7 +11,7 @@ export default class SecurityApi {
     }
     baseUrl() {
         console.log(process.env.REACT_APP_URL_API)
-        return process.env.REACT_APP_URL_API_LOGIN + '/login_check';
+        return process.env.REACT_APP_URL_API_LOGIN + '/login';
     }
     login(data) {
         const url = this.baseUrl();
